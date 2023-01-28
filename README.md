@@ -3,8 +3,8 @@
 A simple game engine I made for educational purposed using the SDL2 library. Feel free to use it however you want.
 
 ## Dependencies
-- libsdl2-2.0-0
-- libsdl2-dev (probably not needed for runtime)
+- libsdl2-dev
+- libsdl2-image-dev
 
 ## Compilation
 
