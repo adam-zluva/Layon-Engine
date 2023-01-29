@@ -7,16 +7,17 @@
 class Engine
 {
     private:
-        std::string m_title;
+        Uint16 m_targetFrametime;
         bool m_isRunning;
         SDL_Window* m_window;
         SDL_Renderer* m_renderer;
         
     public:
-        Engine(std::string title);
+        Engine();
         ~Engine();
 
-        void Init(int width, int height, bool fullscreen);
+        void Init(std::string title, int width, int height, bool fullscreen, Uint16 targetFrametime);
+        void GameLoop();
         void Update();
         void Render();
         void Clean();

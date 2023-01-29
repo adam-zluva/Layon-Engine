@@ -3,26 +3,25 @@
 
 #define ENDLN "\n"
 
-Engine::Engine(std::string title)
-{
-    m_title = title;
-}
+Engine::Engine() { }
 
 Engine::~Engine() { }
 
-void Engine::Init(int width, int height, bool fullscreen)
+void Engine::Init(std::string title, int width, int height, bool fullscreen, Uint16 targetFrametime)
 {
     std::cout << "Engine - Init started." << ENDLN;
 
     if (SDL_Init(SDL_INIT_EVERYTHING) == 0)
     {
         std::cout << "Engine - SDL Initialized!" << ENDLN;
+
         m_isRunning = true;
+        m_targetFrametime = targetFrametime;
 
         int flags = 0;
         if (fullscreen) flags |= SDL_WINDOW_FULLSCREEN;
 
-        m_window = SDL_CreateWindow(m_title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+        m_window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
             width, height, flags);
         if (m_window == NULL)
         {
@@ -56,6 +55,26 @@ void Engine::HandleEvents()
         default:
             // std::cout << "Engine - Unknown event polled." << ENDLN;
             break;
+    }
+}
+
+void Engine::GameLoop()
+{
+    Uint32 frameStart = 0;
+    while (isRunning())
+    {        
+        Uint32 deltaTime = SDL_GetTicks() - frameStart;
+
+        frameStart = SDL_GetTicks();
+        HandleEvents();
+        Update();
+        Render();
+
+        int delayTime = m_targetFrametime - (SDL_GetTicks() - frameStart);
+        if (delayTime > 0) SDL_Delay(delayTime);
+
+        Uint32 frameTime = SDL_GetTicks() - frameStart;
+        std::cout << "Engine - Frame time: " << frameTime << ENDLN;
     }
 }
 
