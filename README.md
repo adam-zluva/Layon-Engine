@@ -1,6 +1,7 @@
 # Layon Engine
 
-A simple game engine I made for educational purposed using the SDL2 library. Feel free to use it however you want.
+A simple game engine I'm making for educational purposed using the SDL2 library. Not in active development - only when I'm bored in my free time :)
+Feel free to use it however you want.
 
 ## Dependencies
 - libsdl2-dev
